@@ -48,6 +48,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\AudioManager.cs" />
      <Compile Include="Assets\Scripts\CreateBullet.cs" />
+     <Compile Include="Assets\Scripts\CreateEnemy.cs" />
+     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
+     <Compile Include="Assets\Scripts\HandleWaves.cs" />
      <Compile Include="Assets\Scripts\MoveBullet.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
  <Reference Include="UnityEngine.UI">
