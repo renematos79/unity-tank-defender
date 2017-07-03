@@ -21,9 +21,18 @@ public class AudioManager : MonoBehaviour {
 		
 	}
 
-	public void PlayClip(AudioClip clip)
+	public void PlayClip(AudioClip clip, bool looping = false)
 	{
 		Sons.clip = clip;
+		Sons.loop = looping;
 		Sons.Play ();
+	}
+
+	public void Stop(){
+		Sons.Stop ();
+	}
+
+	public AudioClip GetCurrentAudioClip(){
+		return this.Sons.isPlaying ? this.Sons.clip : null;
 	}
 }

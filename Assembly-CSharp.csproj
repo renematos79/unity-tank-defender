@@ -47,12 +47,15 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AudioManager.cs" />
+     <Compile Include="Assets\Scripts\CameraExtensions.cs" />
      <Compile Include="Assets\Scripts\CreateBullet.cs" />
-     <Compile Include="Assets\Scripts\CreateEnemy.cs" />
-     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
+     <Compile Include="Assets\Scripts\GameEngine.cs" />
      <Compile Include="Assets\Scripts\HandleWaves.cs" />
      <Compile Include="Assets\Scripts\MoveBullet.cs" />
+     <Compile Include="Assets\Scripts\MoveEnemy.cs" />
+     <Compile Include="Assets\Scripts\MoveEnemyBullet.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\RemoveObject.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

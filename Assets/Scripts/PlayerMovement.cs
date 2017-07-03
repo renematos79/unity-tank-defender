@@ -10,19 +10,26 @@ public class PlayerMovement : MonoBehaviour {
 	public float WeaponRotateAngle = 0.0f;
 	public float WeaponRotateSpeed = 0.7f;
 	public GameObject Weapon;
+	public AudioClip TankMovementAudioClip = null;
+	public GameObject Smoke = null;
+	public float Armor = 100.0f;
+
+	public UnityEngine.UI.Text LabelArmor;
+
 
 	private float WEAPON_ROTATE_ANGULE_MAX = 80f;
 	private float WEAPON_ROTATE_ANGULE_MIN = 15f;
 
 	private Animator anim;
 	private Orientation State;
-
+	private SpriteRenderer _SpriteRender;
 
 	// Use this for initialization
 	void Start () {
 		this.anim = GetComponent<Animator>();
 		this.State = Orientation.Right;
 		this.WeaponRotateAngle = WEAPON_ROTATE_ANGULE_MIN;
+		this._SpriteRender = GetComponent<SpriteRenderer> ();
 	}
 
 	private void TurnRight(){
@@ -43,12 +50,55 @@ public class PlayerMovement : MonoBehaviour {
 		anim.SetBool ("idle", false);
 	}
 
+	private void PlayTankMovementAudioClip(){
+		if (TankMovementAudioClip != null) {
+			if (AudioManager.Instance.GetCurrentAudioClip () != TankMovementAudioClip) {
+				AudioManager.Instance.PlayClip (TankMovementAudioClip);	
+			}
+		}
+	}
+
+	private void Damage(float value){
+		this.Armor -= value;
+		UpdateArmor();
+	}
+
+	private void IncreaseArmor(float value){
+		this.Armor += value;
+		if (this.Armor >= 100f) {
+			this.Armor = 100f;
+		}
+	}
+
+	private void UpdateArmor(){
+		if (this.Armor < 20) {
+			this.Smoke.SetActive (true);
+			if (_SpriteRender.color == Color.white) {
+				_SpriteRender.color = Color.red;
+			} else {
+				_SpriteRender.color = Color.white;
+			}	
+		} else {
+			_SpriteRender.color = Color.white;
+			this.Smoke.SetActive (false);
+		}
+		// update armor label
+		if (this.LabelArmor != null){
+			this.LabelArmor.text = this.Armor.ToString ("0.00");
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
 		var idle = true;
 
+		//if (Input.GetKeyDown (KeyCode.RightArrow) || Input.GetKeyDown (KeyCode.LeftArrow)) {
+		//	PlayTankMovementAudioClip ();
+		//} 
+
 		// direita
 		if (Input.GetKey (KeyCode.RightArrow)) {
+			PlayTankMovementAudioClip ();
 			if (this.State == Orientation.Left) { 
 				this.TurnRight ();
 			} else {
@@ -60,6 +110,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		// esquerda
 		if (Input.GetKey (KeyCode.LeftArrow)) {
+			PlayTankMovementAudioClip ();
 			if (this.State == Orientation.Right) { 
 				this.TurnLeft ();	
 			} else {
@@ -93,5 +144,7 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
+		UpdateArmor ();
+		IncreaseArmor (0.01f);
 	}
 }
