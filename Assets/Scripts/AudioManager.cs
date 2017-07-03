@@ -23,10 +23,20 @@ public class AudioManager : MonoBehaviour {
 
 	public void PlayClip(AudioClip clip, bool looping = false)
 	{
-		Sons.clip = clip;
-		Sons.loop = looping;
-		Sons.Play ();
+		if (clip != null) {
+			Sons.clip = clip;
+			Sons.loop = looping;
+			Sons.Play ();	
+		}
 	}
+
+	public void PlayClipIfNeed(AudioClip clip, bool looping = false)
+	{
+		if (GetCurrentAudioClip () != clip) {
+			PlayClip (clip, looping);
+		}
+	}
+
 
 	public void Stop(){
 		Sons.Stop ();

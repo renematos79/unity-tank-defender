@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameEngine : MonoBehaviour {
 
 	public GameObject Enemy;
+	public GameObject Player;
 	public float EnemySpeed = 2.5f;
 	public float BulletSpeed = 40f;
 	public int Enemies = 50;
@@ -41,10 +42,16 @@ public class GameEngine : MonoBehaviour {
 		var enemy = Instantiate (Enemy);
 		enemy.transform.position = new Vector2 (bounds.size.x, y);
 		// parametro do inimigo
-		var moveEnemy = enemy.GetComponent<MoveEnemy> ();
-		moveEnemy.Velocity = EnemySpeed;
-		moveEnemy.BulletSpeed = BulletSpeed;
+		var helicopter = enemy.GetComponent<HelicopterEngine> ();
+		helicopter.Velocity = EnemySpeed * Random.value;
+		helicopter.BulletSpeed = BulletSpeed;
+		helicopter.Player = Player;
+		helicopter.BulletInterval = Random.value * 3;
+		if (helicopter.BulletInterval < 1) {
+			helicopter.BulletInterval = 1.0f;
+		}
 
+		// inimigos disponiveis
 		Enemies--;
 		if (Enemies <= 0) {
 			CancelInvoke ();

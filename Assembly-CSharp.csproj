@@ -51,9 +51,9 @@
      <Compile Include="Assets\Scripts\CreateBullet.cs" />
      <Compile Include="Assets\Scripts\GameEngine.cs" />
      <Compile Include="Assets\Scripts\HandleWaves.cs" />
-     <Compile Include="Assets\Scripts\MoveBullet.cs" />
-     <Compile Include="Assets\Scripts\MoveEnemy.cs" />
+     <Compile Include="Assets\Scripts\HelicopterEngine.cs" />
      <Compile Include="Assets\Scripts\MoveEnemyBullet.cs" />
+     <Compile Include="Assets\Scripts\MoveTankBullet.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\RemoveObject.cs" />
  <Reference Include="UnityEngine.UI">

@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float WeaponRotateSpeed = 0.7f;
 	public GameObject Weapon;
 	public AudioClip TankMovementAudioClip = null;
+	public AudioClip TankExplosionAudioClip = null;
 	public GameObject Smoke = null;
 	public float Armor = 100.0f;
 
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private float WEAPON_ROTATE_ANGULE_MAX = 80f;
 	private float WEAPON_ROTATE_ANGULE_MIN = 15f;
+	private float START_SMOKE_WHEN = 40f;
 
 	private Animator anim;
 	private Orientation State;
@@ -50,6 +52,12 @@ public class PlayerMovement : MonoBehaviour {
 		anim.SetBool ("idle", false);
 	}
 
+	private void DestroyTank(){
+		anim.SetBool ("destroy", true);
+		Weapon.SetActive (false);
+		AudioManager.Instance.PlayClipIfNeed (TankExplosionAudioClip);
+	}
+
 	private void PlayTankMovementAudioClip(){
 		if (TankMovementAudioClip != null) {
 			if (AudioManager.Instance.GetCurrentAudioClip () != TankMovementAudioClip) {
@@ -71,13 +79,15 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	private void UpdateArmor(){
-		if (this.Armor < 20) {
+		if (this.Armor > 0 && this.Armor < START_SMOKE_WHEN) {
 			this.Smoke.SetActive (true);
 			if (_SpriteRender.color == Color.white) {
 				_SpriteRender.color = Color.red;
 			} else {
 				_SpriteRender.color = Color.white;
 			}	
+		} else if (this.Armor <= 0) {
+			DestroyTank ();
 		} else {
 			_SpriteRender.color = Color.white;
 			this.Smoke.SetActive (false);
@@ -88,8 +98,16 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	public bool IsAlive(){
+		return (anim.GetBool ("destroy") == false);
+	}
+
 	// Update is called once per frame
 	void Update () {
+		if (this.IsAlive() == false) {
+			return;
+		}
+
 		var idle = true;
 
 		//if (Input.GetKeyDown (KeyCode.RightArrow) || Input.GetKeyDown (KeyCode.LeftArrow)) {

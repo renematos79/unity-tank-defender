@@ -33,7 +33,7 @@ public class CreateBullet : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (this._PlayerMovement != null) {
+		if (this._PlayerMovement != null && (this._PlayerMovement.IsAlive() == true)) {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				Bullets--;
 				if (Bullets < 0) {
