@@ -14,5 +14,9 @@ Aula 3:
 Usando a física e prefabs
 https://www.youtube.com/watch?v=ON4AK6d3JtQ&list=PL4G9uRWxf6dZyDvuIcli7IqOu4Dzo8YiY&index=7&t=10s
 
+Aula 4:
+Usando scripts para movimentar objetos
+https://www.youtube.com/watch?v=2vfvThPgtKc&feature=youtu.be
+
 Divirtam-se e se gostaram do vídeo compartilhem com seus amigos e sinalizem com um Like!
 
